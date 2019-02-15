@@ -1,0 +1,217 @@
+import java.util.*;
+
+import java.io.*;
+
+import java.lang.*;
+
+
+
+public class Main {
+    
+	Node root;
+
+	public class Node {
+       
+		 int data;
+        
+		Node right;
+        
+		Node left;
+		
+ int N;
+    
+    
+	
+	public Node(int data ){
+        
+		this.data = data;
+        
+		right = null;
+        
+		left = null;
+       
+		 N = 1;
+    
+		}
+    
+	}
+    
+    
+
+	public Main(){
+        
+		root = null;
+   
+	 }
+    
+   
+
+	 public boolean isEmpty(){
+       
+		 return size() == 0;
+    
+	}
+    
+    
+
+	public int size() {
+        
+		return sizeOf(root);
+   
+	 }
+    
+    
+
+	public int sizeOf(Node root){
+       
+		 return root==null ? 0 : root.N;
+    
+	}
+    
+   
+
+	 public Integer get(int data) {
+            
+		Node x = get(root, data);
+            
+		return x == null ? null : x.data;
+        
+	}
+        
+        
+	
+	private Node get(Node x, Integer data) {
+            
+		if (x == null) {
+                
+			return null;
+           
+		 }
+           
+		 int cmp = data.compareTo(x.data);
+           
+		 if (cmp == 0) {
+                
+			return x;
+            
+		}
+            
+		if (cmp < 0) {
+               
+		 	return get(x.left, data);
+            
+		}
+            
+		return get(x.right, data);
+       
+	 }
+        
+        
+
+	public void insert(int data){
+           
+		 root = insert1(root , data);
+       
+	 }
+        
+        
+	public Node insert1(Node root , int data){
+            
+		if(root == null){
+                
+			return new Node(data);
+            
+		}
+            
+           
+		 if(root.data > data){
+                
+			root.left = insert1(root.left , data);
+            
+		}   
+            
+            
+		else if(root.data < data){
+               
+			 root.right = insert1(root.right , data);
+          
+		  }
+            
+           
+		 else
+                
+			return root;
+            
+		root.N = 1 + sizeOf(root.left) + sizeOf(root.right);
+                
+			return root;
+        
+	}
+        
+        
+
+	public Integer rank(int key){
+            
+		return gRank(root , key);
+      
+	  }
+        
+        
+
+	public Integer gRank(Node root , int key){
+           
+		 if(get(key) == null)
+           
+			 return -1;
+            
+
+		if(root == null)
+            
+			return 0;
+            
+           
+
+		 if(root.data == key)
+           
+			 return sizeOf(root.left);
+            
+          
+
+		  if(root.data > key)
+           
+			 return gRank(root.left , key);
+            
+           
+
+		 else
+            
+			return 1+sizeOf(root.left)+gRank(root.right , key);
+      
+	  }
+        
+        
+	public static void main(String[] args){
+        
+		Scanner in = new Scanner(System.in);
+       
+		 Main bst = new Main();
+      
+		  int n = in.nextInt();
+        
+		for(int i = 0 ; i < n ; i++){
+            
+			bst.insert(in.nextInt());
+        
+		}
+       
+		 int m = in.nextInt();
+       
+		 for(int i = 0 ; i < m ; i++){
+            
+			System.out.println(bst.rank(in.nextInt()));
+     
+		   }
+        
+	}
+
+}

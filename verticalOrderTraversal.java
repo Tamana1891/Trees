@@ -23,8 +23,7 @@ class Main
         printUtil(root , hd , map);
         for (Entry<Integer, ArrayList<Integer>> entry : map.entrySet()) 
         { 
-          res.add(entry.getValue()
-          ); 
+          res.add(entry.getValue(); 
         } 
         for(int i=0;i<res.size();i++)
             for(int j=0;j<res.get(i).size();j++)
